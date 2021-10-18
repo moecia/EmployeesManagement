@@ -25,3 +25,5 @@ In the employee panel, the user can edit the employee's first name, last name, h
 1. Build the  testing project.
 2. Copy ```Employees.json``` and ```Tasks.json``` from /EmployeeManagement.Endpoints to /EmployeeManagement.Testing/bin/Debug/netcoreapp3.1.
 3. Run test cases.
+## CI/CD content
+Backend will read config data from appsettings.json. Frontend will read configs from .env. Both configuration files have placeholder for CI/CD variables.
