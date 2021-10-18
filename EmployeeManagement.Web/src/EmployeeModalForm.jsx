@@ -49,7 +49,7 @@ export const EmployeeModalForm = ({ employeeData, tasksData, isEdit, visible, on
     if(firstName && lastName && hiredDate) {
       let et = [];
       for(let i in employeeTasks) {
-        et.push(tasksData[i]);
+        et.push(tasksData[employeeTasks[i]]);
       }
       if(isEdit) {
         let e = {

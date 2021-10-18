@@ -1,6 +1,6 @@
-import { List, Avatar, Modal, Button } from "antd";
+import { List, Avatar, Modal, Button, PageHeader } from "antd";
 import { useEffect, useState } from "react";
-import style from "./EmployeesManagement.css"
+import styles from "./EmployeesManagement.css"
 import { EmployeeModalForm } from "./EmployeeModalForm";
 import { EMPLOYEES_URL, TASKS_URL } from "./config";
 
@@ -118,27 +118,35 @@ export function EmployeeManagement() {
 
   return (
     <>
-      <Modal title="Confirm Delete" visible={isDeleteModalVisible} onOk={confirmDelete} onCancel={cancelDelete}>
-        <p>Are you sure to delete this employee infomation?</p>
-      </Modal>
-      <EmployeeModalForm employeeData={selectedEmployee} tasksData={tasks} isEdit={isEditModal} visible={isEmployeeFormVisible} onCancel={closeEmployeeForm} />
-      <List
-        itemLayout="horizontal"
-        dataSource={employees !== null ? employees : []}
-        renderItem={item => (
-          <List.Item actions={[<a onClick={() => editEmployee(item)}>Edit</a>, <a onClick={() => deleteEmployee(item)}>Delete</a>]}>
-            <List.Item.Meta
-              avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title={<p>{item?.firstName} {item?.lastName}</p>}
-              description={<p>Employee From {item?.hiredDate}</p>}
-              actions={[<a onClick={(item) => editEmployee(item)}>Edit</a>, <a key="list-loadmore-more">Delete</a>]}
-            />
-          </List.Item>
-        )}
+      <PageHeader
+        className="site-page-header-responsive"
+        title="Employees Portal"
+        extra={[
+          <Button type="primary" onClick={NewEmployee}>
+            New Employee
+          </Button>
+        ]}
       />
-      <Button type="primary" onClick={NewEmployee}>
-          New Employee
-      </Button>
+      <div className="container">
+        <Modal title="Confirm Delete" visible={isDeleteModalVisible} onOk={confirmDelete} onCancel={cancelDelete}>
+          <p>Are you sure to delete this employee infomation?</p>
+        </Modal>
+        <EmployeeModalForm employeeData={selectedEmployee} tasksData={tasks} isEdit={isEditModal} visible={isEmployeeFormVisible} onCancel={closeEmployeeForm} />
+        <List
+          itemLayout="horizontal"
+          dataSource={employees !== null ? employees : []}
+          renderItem={item => (
+            <List.Item actions={[<a onClick={() => editEmployee(item)}>Edit</a>, <a onClick={() => deleteEmployee(item)}>Delete</a>]}>
+              <List.Item.Meta
+                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                title={<p>{item?.firstName} {item?.lastName}</p>}
+                description={<p>Employee From {item?.hiredDate}</p>}
+                actions={[<a onClick={(item) => editEmployee(item)}>Edit</a>, <a key="list-loadmore-more">Delete</a>]}
+              />
+            </List.Item>
+          )}
+        />
+      </div>
     </>
   )
 }

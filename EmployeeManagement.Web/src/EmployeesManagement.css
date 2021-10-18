@@ -1,1 +1,7 @@
 @import "~antd/dist/antd.css";
+
+.container {
+    border: 1px solid;
+    color:aqua;
+    margin: 10px
+}
