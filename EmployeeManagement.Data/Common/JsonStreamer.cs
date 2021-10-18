@@ -3,37 +3,43 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using EmployeeManagement.Data.Models;
+using EmployeeManagement.Data.Settings;
 using Newtonsoft.Json;
 
 namespace EmployeeManagement.Data.Common
 {
-    public static class JsonStreamer
+    public class JsonStreamer
     {
-        private const string EMPLOYEE_PATH = "Employees.json";
-        private const string TASK_PATH = "Tasks.json";
         private enum DataType { Employee, EmployeeTask };
 
-        public static IEnumerable<Employee> ReadEmployees()
+        private readonly JsonLocationSettings _jsonLocationSettings;
+
+        public JsonStreamer(JsonLocationSettings jsonLocationSettings)
+        {
+            _jsonLocationSettings = jsonLocationSettings;
+        }
+
+        public IEnumerable<Employee> ReadEmployees()
         {
             return Read<Employee>(DataType.Employee);
         }
 
-        public static IEnumerable<EmployeeTask> ReadTasks()
+        public IEnumerable<EmployeeTask> ReadTasks()
         {
             return Read<EmployeeTask>(DataType.EmployeeTask);
         }
 
-        public static void SaveEmployee(List<Employee> employees)
+        public void SaveEmployee(List<Employee> employees)
         {
             Write(DataType.Employee, employees);
         }
 
-        public static void SaveTask(List<EmployeeTask> tasks)
+        public void SaveTask(List<EmployeeTask> tasks)
         {
             Write(DataType.EmployeeTask, tasks);
         }
 
-        private static IEnumerable<T> Read<T>(DataType dataType)
+        private IEnumerable<T> Read<T>(DataType dataType)
         {
             try
             {
@@ -41,10 +47,10 @@ namespace EmployeeManagement.Data.Common
                 switch (dataType)
                 {
                     case DataType.Employee:
-                        path = EMPLOYEE_PATH;
+                        path = _jsonLocationSettings.EmployeesJsonPath;
                         break;
                     case DataType.EmployeeTask:
-                        path = TASK_PATH;
+                        path = _jsonLocationSettings.EmployeeTasksJsonPath;
                         break;
                 }
 
@@ -62,7 +68,7 @@ namespace EmployeeManagement.Data.Common
             return null;
         }
 
-        private static void Write<T>(DataType dataType, IEnumerable<T> data)
+        private void Write<T>(DataType dataType, IEnumerable<T> data)
         {
             try
             {
@@ -70,10 +76,10 @@ namespace EmployeeManagement.Data.Common
                 switch (dataType)
                 {
                     case DataType.Employee:
-                        path = EMPLOYEE_PATH;
+                        path = _jsonLocationSettings.EmployeesJsonPath;
                         break;
                     case DataType.EmployeeTask:
-                        path = TASK_PATH;
+                        path = _jsonLocationSettings.EmployeeTasksJsonPath;
                         break;
                 }
 

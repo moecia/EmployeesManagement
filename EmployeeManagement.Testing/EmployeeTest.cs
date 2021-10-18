@@ -5,25 +5,33 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using Shouldly;
+using EmployeeManagement.Data.Common;
+using EmployeeManagement.Data.Settings;
 
 namespace EmployeeManagement.Testing
 {
     public class EmployeeTest
     {
+        private EmployeesRepository GetRepo()
+        {
+            var jsonStreamer = new JsonStreamer(new JsonLocationSettings());
+            return new EmployeeMgmtContext(jsonStreamer).Employees;
+        }
+
         [Fact]
         public void Add()
         {
-            var context = new EmployeeMgmtContext().Employees;
-            var countBeforeAdd = context.GetAll().Count;
-            context.Add(new Employee
+            var repo = GetRepo();
+            var countBeforeAdd = repo.GetAll().Count;
+            repo.Add(new Employee
             {
                 FirstName = "Test",
                 LastName = "User",
                 HiredDate = DateTime.Now.ToString("yyyy/MM/dd"),
                 Tasks = new List<EmployeeTask>()
             });
-            context.SaveContext();
-            var countAfterAdd = context.GetAll().Count;
+            repo.SaveContext();
+            var countAfterAdd = repo.GetAll().Count;
             var diff = countAfterAdd - countBeforeAdd;
             diff.ShouldBe(1);
         }
@@ -31,12 +39,12 @@ namespace EmployeeManagement.Testing
         [Fact]
         public void Delete()
         {
-            var context = new EmployeeMgmtContext().Employees;
-            var countBeforeDelete = context.GetAll().Count;
-            var e = context.GetAll().Last();
-            context.Delete(e);
-            context.SaveContext();
-            var countAfterDelete = context.GetAll().Count;
+            var repo = GetRepo();
+            var countBeforeDelete = repo.GetAll().Count;
+            var e = repo.GetAll().Last();
+            repo.Delete(e);
+            repo.SaveContext();
+            var countAfterDelete = repo.GetAll().Count;
             var diff = countBeforeDelete - countAfterDelete;
             diff.ShouldBe(1);
         }
@@ -44,20 +52,20 @@ namespace EmployeeManagement.Testing
         [Fact]
         public void Get()
         {
-            var context = new EmployeeMgmtContext().Employees;
-            var e = context.GetAll().FirstOrDefault();
+            var repo = GetRepo();
+            var e = repo.GetAll().FirstOrDefault();
             e.ShouldNotBe(null);
         }
 
         [Fact]
         public void Update()
         {
-            var context = new EmployeeMgmtContext().Employees;
-            var before = context.GetAll().Where(x => x.Id == 1).FirstOrDefault();
+            var repo = GetRepo();
+            var before = repo.GetAll().Where(x => x.Id == 1).FirstOrDefault();
             before.FirstName = "Bingnan Test";
-            context.Update(before);
-            context.SaveContext();
-            var after = context.GetAll().Where(x => x.Id == 1).FirstOrDefault();
+            repo.Update(before);
+            repo.SaveContext();
+            var after = repo.GetAll().Where(x => x.Id == 1).FirstOrDefault();
             after.FirstName.ShouldBe("Bingnan Test");
         }
     }

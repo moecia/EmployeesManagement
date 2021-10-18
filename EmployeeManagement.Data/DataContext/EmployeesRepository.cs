@@ -7,13 +7,15 @@ using System.Text;
 
 namespace EmployeeManagement.Data.DataContext
 {
-    public class EmployeesContext
+    public class EmployeesRepository
     {
         private List<Employee> _employees;
-
-        public EmployeesContext(List<Employee> employees)
+        private readonly JsonStreamer _jsonStreamer;
+        public EmployeesRepository(List<Employee> employees,
+            JsonStreamer jsonStreamer)
         {
             _employees = employees;
+            _jsonStreamer = jsonStreamer;
         }
 
         public void Add(Employee e)
@@ -54,7 +56,7 @@ namespace EmployeeManagement.Data.DataContext
 
         public void SaveContext()
         {
-            JsonStreamer.SaveEmployee(_employees);
+            _jsonStreamer.SaveEmployee(_employees);
         }
     }
 }

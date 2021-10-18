@@ -5,13 +5,16 @@ using System.Linq;
 
 namespace EmployeeManagement.Data.DataContext
 {
-    public class EmployeeTasksContext
+    public class EmployeeTasksRepository
     {
         private List<EmployeeTask> _employeeTasks;
+        private readonly JsonStreamer _jsonStreamer;
 
-        public EmployeeTasksContext(List<EmployeeTask> employeeTasks)
+        public EmployeeTasksRepository(List<EmployeeTask> employeeTasks,
+            JsonStreamer jsonStreamer)
         {
             _employeeTasks = employeeTasks;
+            _jsonStreamer = jsonStreamer;
         }
 
         public void Add(EmployeeTask t)
@@ -47,7 +50,7 @@ namespace EmployeeManagement.Data.DataContext
 
         public void SaveContext()
         {
-            JsonStreamer.SaveTask(_employeeTasks);
+            _jsonStreamer.SaveTask(_employeeTasks);
         }
     }
 }

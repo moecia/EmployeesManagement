@@ -9,13 +9,16 @@ namespace EmployeeManagement.Data.DataContext
 {
     public class EmployeeMgmtContext
     {
-        public EmployeesContext Employees { get; set; }
-        public EmployeeTasksContext EmployeeTasks { get; set; }
+        public EmployeesRepository Employees { get; set; }
+        public EmployeeTasksRepository EmployeeTasks { get; set; }
 
-        public EmployeeMgmtContext()
+        private readonly JsonStreamer _jsonStreamer;
+
+        public EmployeeMgmtContext(JsonStreamer jsonStreamer)
         {
-            Employees = new EmployeesContext(JsonStreamer.ReadEmployees().ToList()) ;
-            EmployeeTasks = new EmployeeTasksContext(JsonStreamer.ReadTasks().ToList());
+            _jsonStreamer = jsonStreamer;
+            Employees = new EmployeesRepository(jsonStreamer.ReadEmployees().ToList(), _jsonStreamer) ;
+            EmployeeTasks = new EmployeeTasksRepository(jsonStreamer.ReadTasks().ToList(), _jsonStreamer);
         }
     }
 }

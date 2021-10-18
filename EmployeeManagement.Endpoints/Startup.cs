@@ -1,4 +1,6 @@
+using EmployeeManagement.Data.Common;
 using EmployeeManagement.Data.DataContext;
+using EmployeeManagement.Data.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,8 @@ namespace EmployeeManagement.Endpoints
         {
             services.AddControllers();
             services.AddScoped<EmployeeMgmtContext>();
+            services.AddSingleton<JsonStreamer>();
+            services.AddTransient<JsonLocationSettings>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

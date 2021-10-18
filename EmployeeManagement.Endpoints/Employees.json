@@ -6,8 +6,8 @@
     "HiredDate": "2022/10/17",
     "Tasks": [
       {
-        "Id": 0,
-        "TaskName": "Analysis",
+        "Id": 2,
+        "TaskName": "In Development",
         "StartTime": "2021/10/17",
         "Deadline": "2022/10/17"
       }
@@ -18,14 +18,34 @@
     "FirstName": "Nate",
     "LastName": "Li",
     "HiredDate": "2022/10/17",
-    "Tasks": []
+    "Tasks": [
+      {
+        "Id": 0,
+        "TaskName": "Analysis",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      },
+      {
+        "Id": 2,
+        "TaskName": "In Development",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      }
+    ]
   },
   {
     "Id": 2,
     "FirstName": "Robert",
     "LastName": "Hehr",
     "HiredDate": "2021/10/17",
-    "Tasks": []
+    "Tasks": [
+      {
+        "Id": 0,
+        "TaskName": "Analysis",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      }
+    ]
   },
   {
     "Id": 3,
@@ -83,10 +103,36 @@
     ]
   },
   {
-    "Id": 8,
-    "FirstName": "Test",
-    "LastName": "User",
-    "HiredDate": "2021/10/17",
+    "Id": 9,
+    "FirstName": "Sam",
+    "LastName": "L",
+    "HiredDate": "2021/10/01",
     "Tasks": []
+  },
+  {
+    "Id": 10,
+    "FirstName": "Test",
+    "LastName": "User4",
+    "HiredDate": "2021/10/01",
+    "Tasks": [
+      {
+        "Id": 0,
+        "TaskName": "Analysis",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      },
+      {
+        "Id": 1,
+        "TaskName": "Ready For Development",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      },
+      {
+        "Id": 2,
+        "TaskName": "In Development",
+        "StartTime": "2021/10/17",
+        "Deadline": "2022/10/17"
+      }
+    ]
   }
 ]
